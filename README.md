@@ -52,8 +52,8 @@ Don't really delete the user account, just archive it?  I'll still have full
 CRUD on markers.
 
 - What happens if a user deletes a marker?  What happens to the location?  Will
-the marker still show up?  Should it be grayed out?  I think the location should be
-removed from the map when there are no other markers associated with that
+the marker still show up?  Should it be grayed out?  I think the location should
+be removed from the map when there are no other markers associated with that
 location.  But maybe not. Consider how to inspire other users to create another
 marker in that location.
 
@@ -64,8 +64,8 @@ marker in that location.
 - postgres has a gis feature probably, and might have a location-based query.
 It's postgis.net
 
-- What to do if user doesn't have GM on their phone?  Don't worry about this Q on
-this project.
+- What to do if user doesn't have GM on their phone?  Don't worry about this Q
+on this project.
 
 - How to create a server that my iPhone can get on and test out the app?
 https://ngrok.com/
@@ -76,6 +76,25 @@ longer than expected, same with google maps API.  Talk to Sean re AWS and audio.
 
 
 ## 5. User Stories
+
+###### As a [role] I want to [goal] so I can [motivation].
+
+- As an unregistered or logged out user I want to search for a spot on the
+map (address, coordinates, place name, marker title, marker description, marker
+  category) so I can click on markers so I can see (but not hear) the title,
+  description, category, and user that created the marker.
+- As an unregistered user I want to create an account so I can log in.
+- As a logged out user I want to log in so I can use the app.
+- As a logged in user I want to search for a spot on the map (address,
+  coordinates, place name, marker title, marker description, marker category)
+  to find a location to:
+  - create a new marker.
+  - edit my markers.
+  - delete my markers.
+  - view and listen to markers that others made.
+- ~~As a logged in user I want to search for other users so I can be notified when
+they add a new marker.~~
+
 
 A user creates their account, logs in, chooses a location on the google map,
 creates a marker which involves making an audio recording (limit ~2 mins) that
@@ -89,9 +108,9 @@ only listen to the audio if they are within 5 meters of the location.  This
 encourages them to visit the locations in person.  (implement this sooner, then
 remove it for testing, then put it back in at the end).
 
-Markers are colored green if they haven't been visited, yellow if that user created
-that marker, and blue if they have been visited.  Clicking on a blue marker plays
-audio regardless of their geolocation (?).  Clicking on a yellow marker asks if
-they want to edit it.  If yes, they can edit the title, category, and
-description.  If they want to edit the audio, they have to delete it first and
-re-record.  They can also delete a marker altogether.
+Markers are colored green if they haven't been visited, yellow if that user
+created that marker, and blue if they have been visited.  Clicking on a blue
+marker plays audio regardless of their geolocation (?).  Clicking on a yellow
+marker asks if they want to edit it.  If yes, they can edit the title, category,
+and description.  If they want to edit the audio, they have to delete it first
+and re-record.  They can also delete a marker altogether.

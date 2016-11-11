@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate, except: [:login, :create]
+  # before_action :authenticate, except: [:login, :create]
 
   ####################################
   ##          /users routes         ##

@@ -27,6 +27,9 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'jwt'
+gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
+
 # gems that help with google maps api
 gem 'geocoder'
 gem 'gmaps4rails'
@@ -34,11 +37,15 @@ gem 'gmaps4rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# use pry-rails instead of byebug
-gem 'pry-rails'
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem 'rack-cors'
+gem 'faker'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # gem 'byebug', platform: :mri
+  # use pry-rails instead of byebug
+  gem 'pry-rails'
 end
 
 group :development do

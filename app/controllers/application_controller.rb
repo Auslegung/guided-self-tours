@@ -1,34 +1,25 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :null_session
-
-  # added from https://www.sitepoint.com/introduction-to-using-jwt-in-rails/
-  attr_reader :current_user
-
-  protected
-  def authenticate_request!
-    unless user_id_in_token?
-      render json: { errors: ['Not Authenticated'] }, status: :unauthorized
-      return
-    end
-    @current_user = User.find(auth_token[:user_id])
-  rescue JWT::VerificationError, JWT::DecodeError
-    render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+  def authenticate
+    render json: {status: 401, message: "unauthorized"} unless decode_token(bearer_token)
   end
 
-  private
-  def http_token
-      @http_token ||= if request.headers['Authorization'].present?
-        request.headers['Authorization'].split(' ').last
-      end
+  def bearer_token
+    pattern = /^Bearer /
+    header  = request.env["HTTP_AUTHORIZATION"] # <= env
+    header.gsub(pattern, '') if header && header.match(pattern)
   end
 
-  def auth_token
-    @auth_token ||= JsonWebToken.decode(http_token)
+  def current_user
+    return if !bearer_token
+    decoded_jwt = decode_token(request.env["HTTP_AUTHORIZATION"])
+
+    User.find(decoded_jwt.user.id)
   end
 
-  def user_id_in_token?
-    http_token && auth_token && auth_token[:user_id].to_i
-end
-
+  def decode_token(token)
+    token = JWT.decode(token, nil, false) # this will error if the token is invalid or expired
+  rescue
+    render json: {status: 401, message: 'invalid or expired token'}
+  end
 
 end

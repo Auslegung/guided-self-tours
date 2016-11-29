@@ -33,7 +33,7 @@ class UsersController < ApplicationController
         {
           id: user.id,
           username: user.username,
-          markers: user.markers
+          # markers: user.markers
         },
           token: token
         }
@@ -123,10 +123,12 @@ class UsersController < ApplicationController
   end
 
   private
+  def token(id, username)
+    # The below line works without using the .env file.
+    # JWT.encode(payload(id, username), Rails.application.secrets.secret_key_base, 'HS256')
+    JWT.encode(payload(id, username), ENV['JWT_SECRET'], 'HS256')
 
-    def token(id, username)
-      JWT.encode(payload(id, username), ENV['JWT_SECRET'], 'HS256')
-    end
+  end
 
     def payload(id, username)
       {

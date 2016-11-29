@@ -33,7 +33,7 @@ class UsersController < ApplicationController
         {
           id: user.id,
           username: user.username,
-          # markers: user.markers
+          markers: user.markers
         },
           token: token
         }

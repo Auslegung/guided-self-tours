@@ -1,0 +1,13 @@
+class CreateMarkers < ActiveRecord::Migration[5.0]
+  def change
+    create_table :markers do |t|
+      t.string :title
+      t.text :description
+      t.string :audio
+      t.string :category
+      t.belongs_to :user
+
+      t.timestamps
+    end
+  end
+end

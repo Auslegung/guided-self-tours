@@ -13,5 +13,8 @@ Rails.application.routes.draw do
     end # end member do
   end # end resources do
 
-  
+  resources :markers, only: [:show, :index] do
+
+  end
+
 end # end draw do

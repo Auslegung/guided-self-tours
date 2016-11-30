@@ -27,16 +27,7 @@ class UsersController < ApplicationController
 
     if user && user.authenticate(params[:user][:password])
       token = token(user.id, user.username)
-      render json:
-      {
-        status: 201, user:
-        {
-          id: user.id,
-          username: user.username,
-          markers: user.markers
-        },
-          token: token
-        }
+      render json: {status: 201, user: user, token: token}
     else
       render json: {status: 401, message: "unauthorized"}
     end
@@ -45,20 +36,17 @@ class UsersController < ApplicationController
   # GET /users/:id
   def show
     user = User.find(params[:id])
-    render json:
-    {
-      status: 200,
-      user: user,
-    }
+    markers = user.markers
+    render json: {status: 200, user: user, markers: markers}
   end
 
   # PATCH/PUT /users/:id
   def update
     user = User.find(params[:id])
     if user.update(user_params)
-      render json: user
+      render json: {status: 200, user: user}
     else
-      render json: user.errors, status: :unprocessable_entity
+      render json: {status: :unprocessable_entity, user: user.errors}
     end
   end
 

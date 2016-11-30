@@ -15,11 +15,11 @@ class ApplicationController < ActionController::Base
     decoded_jwt = decode_token(bearer_token)
 
     # User.find(decoded_jwt.user.id)
-    User.find(decoded_jwt['user']['id'])
+    # User.find(decoded_jwt['user']['id'])
   end
 
   def decode_token(token)
-    token = JWT.decode(token, nil, false)[0] # this will error if the token is invalid or expired
+    token = JWT.decode(token, nil, false) # this will error if the token is invalid or expired
   rescue
     render json: {status: 401, message: 'invalid or expired token'}
   end

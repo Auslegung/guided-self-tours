@@ -45,10 +45,12 @@ class UsersController < ApplicationController
   # GET /users/:id
   def show
     user = User.find(params[:id])
+    markers = Marker.where(user_id: params[:id])
     render json:
     {
       status: 200,
       user: user,
+      markers: markers
     }
   end
 

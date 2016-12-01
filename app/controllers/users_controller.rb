@@ -78,19 +78,20 @@ class UsersController < ApplicationController
 
   # Adds a marker to a user POST /users/:id/add_marker
   def add_marker
-    new_marker = current_user.markers.new(marker_params)
+    user = current_user
+    new_marker = user.markers.new(marker_params)
     if new_marker.save
       render json:
       {
         status: 200,
-        user: current_user,
-        marker: current_user.markers
+        # user: user,
+        marker: user.markers,
       }
     else
       render json:
       {
         status: 400,
-        user: current_user,
+        user: user,
         marker: marker.errors
       }
     end

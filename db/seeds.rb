@@ -11,5 +11,5 @@
 end
 
 10.times do |i|
-  Marker.create(title: Faker::Book.title, description: Faker::Hipster.sentence, audio: Faker::Internet.url, category: Faker::Commerce.department(1), user_id: i)
+  Marker.create(title: Faker::Book.title, description: Faker::Hipster.sentence, audio: Faker::Internet.url, category: Faker::Commerce.department(1), latitude: Faker::Address.latitude, longitude: Faker::Address.longitude, user_id: i)
 end

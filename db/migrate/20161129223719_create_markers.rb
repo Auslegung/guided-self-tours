@@ -6,6 +6,8 @@ class CreateMarkers < ActiveRecord::Migration[5.0]
       t.string :audio
       t.string :category
       t.belongs_to :user
+      t.float :latitude
+      t.float :longitude
 
       t.timestamps
     end

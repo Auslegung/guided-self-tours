@@ -150,6 +150,6 @@ class UsersController < ApplicationController
     end
 
     def marker_params
-        params.require(:marker).permit(:title, :description, :category, :audio, :user_id)
+        params.require(:marker).permit(:title, :description, :category, :audio, :user_id, :latitude, :longitude)
     end
 end

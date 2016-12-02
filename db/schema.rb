@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 20161129223719) do
     t.string   "audio"
     t.string   "category"
     t.integer  "user_id"
+    t.float    "latitude"
+    t.float    "longitude"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["user_id"], name: "index_markers_on_user_id"

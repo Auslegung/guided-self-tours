@@ -1,83 +1,55 @@
 # guided-self-tours
-Create guided tours of history, nature, art, and more.
+Create guided tours of history, nature, art, and more.  https://protected-retreat-87097.herokuapp.com/#/
 
 ## 1. Technologies Used
-- Paperclip
-
-- AWS
-
 - Ruby on Rails
-
 - AngularJS
-
-- Postgres
-
-- PostGIS
+- Google Maps Javascript API
 
 ## 2. My Approach
-Version 1 has no geolocation, and user uploads their own audio file instead of
-recording it in-app.  Version 2 adds geolocation but user uploads their own
-audio file.  Version 3 restricts audio from playing unless the user is within 5
-meters of the marker.  Version 4 allows users to record audio into the app.
 
-## 3. Unsolved Problems
+## 3. Future Features
+#### User Experience:
+- Allow user to record short audio clips to associate with markers.
+- Users can listen to the audio only if they're within 10 meters of the marker.
+- Allow user to group markers together into tours that must be visited in a
+specific order for audio to play.
+- Allow user to search for markers by category, title, description, or tour name.
+- Clicking 'Save & Close' on an infowindow will also close the infowindow.
+- Clicking on a recently-created marker will show the information not inside
+input fields.
+- Add username to each marker that a user creates.
+- Clicking on a username takes a user to that user's page, where they can see
+all of the markers created by that user.
 
-## 4. Notes to Self / Thoughts
-### Database Stuff
+#### Database optimization:
+- Change primary key to username and make username the foreign key on markers,
+that way adding the username to each marker's infowindow is faster.
+- Load all markers when the map loads, but only load infowindow content when
+the user clicks on the marker.
 
-##### User has:
-- many markers
-- username
-- password
+#### UI Feature:
+- Add styling to signup/login form.
+- Add background video to landing page.
+- Add navigation menu to all pages.
+- Give user the option to change their password and username
+- Change marker colors:
+ - Green if user hasn't visited the marker.
+ - Blue if user has visited the marker.
+ - Yellow if user created the marker.
+ - Red if the user has clicked on the marker but has not visited it.
+- Add Google StreeView image to each marker's infowindow
 
-##### Marker has:
-- belongs to user
-- belongs to location
-- title (limited to 20 characters)
-- description (limited to ~160 characters)
-- audio
-- category
-
-##### Location has:
-- many markers
-- latitude?
-- longitude?
-
-### Misc Thoughts
-- How to put audio recording in markers table under audio column?  Put a link in
-the table that points to where the audio is hosted?  How will that work?
-
-- How to prevent the marker from being deleted if a user's account is deleted?
-Don't really delete the user account, just archive it?  I'll still have full
-CRUD on markers.
-
-- What happens if a user deletes a marker?  What happens to the location?  Will
-the marker still show up?  Should it be grayed out?  I think the location should
-be removed from the map when there are no other markers associated with that
-location.  But maybe not. Consider how to inspire other users to create another
-marker in that location.
-
-- how does the app get audio? Via app or uploaded files?
-
-- if user moves more than x meters, update again.
-
-- postgres has a gis feature probably, and might have a location-based query.
-It's postgis.net
-
-- What to do if user doesn't have GM on their phone?  Don't worry about this Q
-on this project.
-
-- How to create a server that my iPhone can get on and test out the app?
-https://ngrok.com/
-
-### Instructor feedback:
-Getting AWS and paperclip may take a long time.  Assume it'll take 3 times
-longer than expected, same with google maps API.  Talk to Sean re AWS and audio.
+## 4. Unsolved Problems
+- Delete and update markers are not working.
+- Login is broken and doesn't require a username or password.
+- JSON.parse is asynchronous, so every attempt to use that needs to be added
+to a promise chain.
 
 
 ## 5. User Stories
 
-###### As a [role] I want to [goal] so I can [motivation].
+#### Version 1
 
 - As an unregistered or logged out user I want to search for a spot on the
 map (address, coordinates, place name, marker title, marker description, marker
@@ -92,25 +64,5 @@ map (address, coordinates, place name, marker title, marker description, marker
   - edit my markers.
   - delete my markers.
   - view and listen to markers that others made.
-- ~~As a logged in user I want to search for other users so I can be notified when
-they add a new marker.~~
-
-
-A user creates their account, logs in, chooses a location on the google map,
-creates a marker which involves making an audio recording (limit ~2 mins) that
-gets associated with that location, choosing a category (art, history,
-architecture, music, nature, tech, etc) and creating a title, description
-(limit 160ish chars), and ~~photo~~ (?).  
-
-User can see all markers on the map, and can click on any marker to reveal
-an info window with the marker info (title, category, and description), but can
-only listen to the audio if they are within 5 meters of the location.  This
-encourages them to visit the locations in person.  (implement this sooner, then
-remove it for testing, then put it back in at the end).
-
-Markers are colored green if they haven't been visited, yellow if that user
-created that marker, and blue if they have been visited.  Clicking on a blue
-marker plays audio regardless of their geolocation (?).  Clicking on a yellow
-marker asks if they want to edit it.  If yes, they can edit the title, category,
-and description.  If they want to edit the audio, they have to delete it first
-and re-record.  They can also delete a marker altogether.
+- As a logged in user I want to search for other users so I can be notified when
+they add a new marker.
